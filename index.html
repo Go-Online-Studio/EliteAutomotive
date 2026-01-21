@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Elite Automotive - Precision Detailing Studio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js" defer></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css">
+    
+    <style>
+      /* --- CSS Variables & Fluid Design System --- */
+      :root {
+        /* Color Palette */
+        --bs-primary: #D90429; 
+        --bs-primary-rgb: 217, 4, 41;
+        --bs-secondary: #2b2d42; 
+        --bs-body-bg: #030305; 
+        --bs-body-color: #edf2f4; 
+        --bs-dark-card: #0a0a0c;
+        
+        --accent-gradient: linear-gradient(135deg, var(--bs-primary) 0%, #EF233C 100%);
+        --glass-bg: rgba(10, 10, 12, 0.8);
+        --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+
+        /* Typography */
+        --fs-h1: clamp(2.5rem, 5vw + 1rem, 5rem);
+        --fs-h2: clamp(1.8rem, 3vw + 1rem, 3rem);
+        --fs-h3: clamp(1.2rem, 2vw + 0.5rem, 1.75rem);
+        --fs-body: clamp(0.9rem, 1vw + 0.2rem, 1.1rem);
+
+        /* Spacing */
+        --section-spacing: clamp(5rem, 10vw, 10rem);
+        --element-spacing: clamp(1.5rem, 3vw, 3rem);
+        --header-height-scroll: 70px;
+        --header-height-top: 100px;
+      }
+
+      /* --- General Styles --- */
+      body {
+        font-family: 'Inter', sans-serif;
+        font-size: var(--fs-body);
+        padding-top: var(--header-height-top);
+        background-color: var(--bs-body-bg);
+        overflow-x: hidden;
+      }
+      
+      h1, h2, h3, h4, h5 { font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+      h1 { font-size: var(--fs-h1); line-height: 1.1; }
+      h2 { font-size: var(--fs-h2); }
+      h3 { font-size: var(--fs-h3); }
+      
+      .text-primary { color: var(--bs-primary) !important; }
+      .text-gradient {
+        background: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: inline-block;
+      }
+
+      .section-padding { padding-top: var(--section-spacing); padding-bottom: var(--section-spacing); }
+      
+      .bg-striped {
+        background-color: var(--bs-dark-card);
+        background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 12px);
+      }
+
+      /* --- Buttons --- */
+      .btn-primary {
+        background: var(--accent-gradient);
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        padding: 1rem 2.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-radius: 4px;
+        position: relative; z-index: 1; overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+      .btn-primary::before {
+        content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%;
+        background: #fff; z-index: -1; transition: all 0.4s ease; opacity: 0.1;
+      }
+      .btn-primary:hover { box-shadow: 0 10px 30px -10px rgba(var(--bs-primary-rgb), 0.8); transform: translateY(-3px); color: #fff; }
+      .btn-primary:hover::before { width: 100%; }
+
+      .btn-outline-primary {
+        color: var(--bs-body-color);
+        border: 1px solid rgba(255,255,255,0.2) !important;
+        font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+        border-radius: 4px; padding: 0.75rem 2rem;
+        background: transparent;
+      }
+      .btn-outline-primary:hover, .btn-outline-primary.mixitup-control-active {
+        background: var(--accent-gradient);
+        border-color: transparent !important;
+        color: #fff;
+        box-shadow: 0 5px 20px -5px rgba(var(--bs-primary-rgb), 0.5);
+      }
+
+      /* --- Header --- */
+      #header { transition: all 0.4s ease; }
+      .navbar {
+        height: var(--header-height-top);
+        background: rgba(3, 3, 5, 0.8);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        transition: all 0.4s ease;
+      }
+      #header.header-scrolled .navbar {
+          height: var(--header-height-scroll);
+          background: rgba(3, 3, 5, 0.98);
+          border-bottom: 1px solid var(--bs-primary);
+      }
+      .navbar-brand-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; color: #fff; letter-spacing: -1px; }
+      .navbar-brand-text span { color: var(--bs-primary); }
+      
+      .nav-link { color: rgba(255,255,255,0.7) !important; text-transform: uppercase; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; position: relative; }
+      .nav-link::after { content: ''; position: absolute; bottom: 5px; left: 50%; width: 0; height: 2px; background: var(--bs-primary); transition: all 0.3s ease; transform: translateX(-50%); }
+      .nav-link:hover { color: #fff !important; }
+      
+      .offcanvas { background-color: var(--bs-body-bg); border-left: 1px solid var(--bs-primary); }
+
+      /* --- Hero --- */
+      #home { margin-top: calc(var(--header-height-top) * -1); }
+      .hero-swiper { width: 100%; height: 100vh; min-height: 700px; }
+      .hero-slide {
+        position: relative; background-size: cover; background-position: center;
+        height: 100%; display: flex; flex-direction: column;
+        padding-top: 150px; padding-bottom: 80px;
+      }
+      .hero-overlay {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.1) 100%);
+      }
+      .hero-content { position: relative; z-index: 2; margin-top: auto; margin-bottom: auto; }
+      .hero-subtitle { display: inline-block; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 1rem; position: relative; padding-left: 3rem; }
+      .hero-subtitle::before { content: ''; position: absolute; left: 0; top: 50%; height: 2px; width: 2rem; background: var(--bs-primary); }
+      
+      .swiper-button-next, .swiper-button-prev { color: #fff !important; background: rgba(255,255,255,0.05); width: 60px; height: 60px; border-radius: 50%; backdrop-filter: blur(10px); transition: all 0.3s ease; }
+      .swiper-button-next:hover, .swiper-button-prev:hover { background: var(--bs-primary); }
+      .swiper-pagination-bullet { background: #fff; opacity: 0.3; width: 12px; height: 12px; transition: all 0.3s ease; }
+      .swiper-pagination-bullet-active { background: var(--bs-primary) !important; opacity: 1; width: 30px; border-radius: 6px; }
+
+      /* --- Process --- */
+      .process-step-card {
+          position: relative; padding: var(--element-spacing); background: var(--glass-bg);
+          border: var(--glass-border); border-radius: 12px; overflow: hidden; height: 100%;
+      }
+      .step-number {
+          font-family: 'Montserrat', sans-serif; font-size: 8rem; font-weight: 900; line-height: 0.8;
+          position: absolute; top: -10px; right: -10px; opacity: 0.05;
+          background: linear-gradient(to bottom, #fff, transparent);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent; z-index: 0;
+      }
+      .process-img-wrapper { position: relative; border-radius: 12px; overflow: hidden; height: 400px; }
+      .process-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.215, 0.610, 0.355, 1.000); }
+      .process-step-row:hover .process-img-wrapper img { transform: scale(1.05); }
+
+      /* --- Services --- */
+      .service-card {
+        background: var(--bs-dark-card); border: 1px solid rgba(255,255,255,0.05);
+        padding: 3rem 2rem; border-radius: 16px; transition: all 0.4s ease;
+        position: relative; overflow: hidden; z-index: 1; height: 100%;
+      }
+      .service-card::before {
+          content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 16px;
+          background: linear-gradient(135deg, transparent 50%, var(--bs-primary), transparent 100%);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask-composite: exclude; opacity: 0; transition: opacity 0.4s ease; z-index: -1;
+      }
+      .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5); }
+      .service-card:hover::before { opacity: 1; }
+      .service-icon { font-size: 4rem; color: var(--bs-primary); margin-bottom: 1.5rem; display: inline-block; transition: transform 0.4s ease; }
+      .service-card:hover .service-icon { transform: scale(1.1) rotate(-5deg); }
+
+      /* --- Portfolio --- */
+      .gallery-item {
+        /* MixItUp handles display, but we keep transitions for the inner card */
+        transform: translateZ(0); /* Hardware acceleration hint */
+      }
+      
+      .gallery-card {
+        position: relative; border-radius: 12px; overflow: hidden;
+        aspect-ratio: 4/3; display: block; border: var(--glass-border);
+      }
+      .gallery-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.215, 0.610, 0.355, 1.000); }
+      .gallery-card:hover img { transform: scale(1.08); }
+      .gallery-overlay {
+        position: absolute; inset: 0; background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(4px); display: flex; flex-direction: column; align-items: center; justify-content: center;
+        opacity: 0; transition: all 0.3s ease;
+      }
+      .gallery-card:hover .gallery-overlay { opacity: 1; }
+      .zoom-btn { 
+          width: 60px; height: 60px; background: var(--accent-gradient); border-radius: 50%;
+          display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.5rem;
+          margin-bottom: 1rem; transform: translateY(20px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      .gallery-card:hover .zoom-btn { transform: translateY(0); }
+
+      /* --- Contact --- */
+      .contact-wrapper {
+          background: var(--glass-bg); border: var(--glass-border); border-radius: 20px;
+          padding: clamp(2rem, 5vw, 4rem); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      }
+      .form-floating > .form-control, .form-floating > .form-select {
+          background-color: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+          color: #fff; border-radius: 8px;
+      }
+      .form-floating > label { color: rgba(255,255,255,0.5); }
+      .form-floating>.form-control-plaintext~label, .form-floating>.form-control:focus~label, .form-floating>.form-control:not(:placeholder-shown)~label, .form-floating>.form-select~label {
+            transform: scale(.85) translateY(-.9rem) translateX(.16rem);
+        }
+        .form-select option{
+            background-color: var(--bs-dark-card);
+        }
+
+    .form-floating>.form-select{
+        height: 58px;
+        padding: 16px 12px;
+    }
+      .form-control:focus, .form-select:focus {
+          background-color: rgba(0,0,0,0.2); border-color: var(--bs-primary);
+          box-shadow: 0 0 0 4px rgba(var(--bs-primary-rgb), 0.1);
+      }
+      .contact-detail-icon {
+          width: 50px; height: 50px; background: rgba(var(--bs-primary-rgb), 0.1);
+          color: var(--bs-primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-right: 1rem;
+      }
+      .footer { background: #000; border-top: 1px solid rgba(255,255,255,0.05); padding: 3rem 0; }
+
+      /* =========================================
+   RESPONSIVE MEDIA QUERIES
+   ========================================= */
+
+/* --- Tablet & Smaller Desktop (Max Width: 991px) --- */
+@media (max-width: 1319.98px) {
+    .contact-wrapper {
+          padding: 2rem;
+      }
+}
+
+
+@media (max-width: 991.98px) {
+  
+  /* 1. Adjust Global Spacing Variables for Tablet */
+  :root {
+    --header-height-top: 80px; /* Shrink header slightly */
+    --section-spacing: 4rem;   /* Reduce vertical gaps */
+    --fs-h1: 2.5rem;           /* Prevent headlines from being too aggressive */
+  }
+
+  /* 2. Hero Adjustments */
+  .hero-slide {
+    padding-top: 120px; /* Less top padding needed since header is smaller */
+    justify-content: center;
+  }
+  
+
+  /* 3. Navbar Toggles */
+  .navbar-collapse {
+    background: var(--bs-dark-card);
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  
+}
+
+/* --- Mobile Devices (Max Width: 767px) --- */
+@media (max-width: 767.98px) {
+
+  /* 1. Global Variable Overrides for Mobile 
+     (This fixes most margin/padding issues instantly) */
+  :root {
+    --header-height-top: 70px;
+    --section-spacing: 3rem;  /* Tighten section gaps */
+    --element-spacing: 12px; /* Tighten card padding */
+    --fs-h1: 2rem;
+    --fs-h2: 1.5rem;
+  }
+
+  /* 2. Header & Nav */
+  .navbar-brand-text {
+    font-size: 1.2rem; /* Prevent logo overlap with burger menu */
+  }
+
+  .hero-subtitle {
+    padding-left: 0; /* Remove the line indentation */
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .hero-subtitle::before {
+    display: none; /* Hide the decorative line on mobile to save space */
+  }
+  
+  .btn-primary, .btn-outline-primary {
+    width: 100%; /* Make buttons full width for easier tapping */
+    margin-bottom: 10px;
+    padding: 0.8rem 1rem; /* Adjust padding for mobile fingers */
+  }
+
+  /* 4. Process Steps */
+  .process-step-card {
+    margin-bottom: 0px; /* Add spacing between stacked cards */
+  }
+  
+  .process-img-wrapper {
+    height: 250px; /* Reduce image height from 400px */
+  }
+  
+  .step-number {
+    font-size: 5rem; /* Shrink the giant background number */
+    top: -5px;
+    right: 10px;
+  }
+
+  /* 5. Services & Portfolio */
+  .service-card {
+    padding: 12px; /* Reduce internal padding */
+    margin-bottom: 1rem;
+  }
+  
+  .gallery-card {
+    aspect-ratio: 16/9; /* Change from 4/3 to wider on mobile */
+  }
+  
+  /* 6. Contact Form */
+  .contact-wrapper {
+    padding: 20px 15px; /* Reduce padding from the massive clamp() */
+  }
+  
+  .contact-detail-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+    margin-bottom: 10px; /* Stack icon above text if flex wraps */
+  }
+}
+
+/* --- Small Mobile / Fold Phones (Max Width: 375px) --- */
+@media (max-width: 375.98px) {
+  :root {
+    --fs-h1: 1.75rem;
+  }
+  
+  .process-img-wrapper {
+    height: 200px;
+  }
+}
+    </style>
+  </head>
+  
+  <body data-bs-spy="scroll" data-bs-target="#mainNavbar" data-bs-offset="120">
+
+    <header id="header" class="fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark" id="mainNavbar">
+            <div class="container">
+              <a class="navbar-brand d-flex align-items-center navbar-brand-text" href="#home">
+                ELITE <span>AUTOMOTIVE</span>
+              </a>
+              <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+                <span class="iconify text-primary" data-icon="heroicons:bars-3-bottom-right-20-solid" data-width="32"></span>
+              </button>
+              
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
+                <div class="offcanvas-header border-bottom border-secondary bg-dark">
+                  <h5 class="offcanvas-title navbar-brand-text">ELITE <span>AUTO</span></h5>
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="offcanvas-body pt-4 pt-lg-0">
+                  <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item px-2"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="#process">Process</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                    <li class="nav-item px-2 ms-lg-3 mt-3 mt-lg-0">
+                        <a href="#contact" class="btn btn-primary btn-sm px-4 py-2">Book Now</a>
+                    </li>
+                  </ul>
+                  <div class="d-lg-none mt-5 border-top border-secondary pt-4 text-white-50">
+                      <p class="mb-3"><a href="tel:+919558566851" class="text-white-50 text-decoration-none"><span class="iconify text-primary me-2" data-icon="heroicons:phone-20-solid"></span> +91 95585 66851</a></p>
+                  </div>
+                </div> 
+              </div>
+            </div>
+          </nav>
+    </header>
+
+    <main>
+        <section id="home">
+            <div class="swiper hero-swiper">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide hero-slide" style="background-image: url('https://images.unsplash.com/photo-1768088929856-5742da76237c?auto=format&q=80&w=1400&fit=max');">
+                    <div class="hero-overlay"></div>
+                    <div class="container hero-content">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <span class="hero-subtitle text-primary">The Art of Detailing</span>
+                                <h1 class="text-white mb-4">Redefining Vehicle <br><span class="text-gradient">Perfection.</span></h1>
+                                <p class="lead text-white-50 mb-5 w-75 d-none d-md-block">Experience showroom level brilliance with our premium ceramic coatings, PPF protection, and restorative detailing services.</p>
+                                <div class="d-flex flex-column flex-md-row align-items-start gap-3">
+                                    <a href="#contact" class="btn btn-primary">Book Appointment</a>
+                                    <a href="#services" class="btn btn-outline-primary">Explore Services</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide hero-slide" style="background-image: url('https://images.unsplash.com/photo-1605164598708-25701594473e?auto=format&q=80&w=1400&fit=max');">
+                    <div class="hero-overlay"></div>
+                    <div class="container hero-content">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <span class="hero-subtitle text-primary">Ultimate Protection</span>
+                                <h1 class="text-white mb-4">Engineered for <br><span class="text-gradient">Longevity.</span></h1>
+                                <p class="lead text-white-50 mb-5 w-75 d-none d-md-block">Advanced paint protection film and graphene coatings that repel elements and preserve your investment.</p>
+                                <a href="#contact" class="btn btn-primary">Get a Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-pagination pb-4"></div>
+                <div class="swiper-button-prev d-none d-xxl-flex ms-4"></div>
+                <div class="swiper-button-next d-none d-xxl-flex me-4"></div>
+              </div>
+        </section>
+
+        <section id="process" class="section-padding bg-striped">
+            <div class="container">
+                <div class="row justify-content-center text-center mb-5">
+                    <div class="col-lg-7">
+                        <h3 class="text-primary text-uppercase letter-spacing-2 mb-3">How We Work</h3>
+                        <h2 class="mb-4">The <span class="text-gradient">Elite</span> Process</h2>
+                        <p class="text-white-50">A meticulous, multi-stage approach ensuring every vehicle receives the highest standard of care.</p>
+                    </div>
+                </div>
+                <div class="row align-items-center mb-5 gx-lg-5 process-step-row">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <div class="process-img-wrapper shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1552930294-6b595f4c2974?q=80&w=2071&auto=format&fit=crop" alt="Detailing Prep">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="process-step-card">
+                            <span class="step-number">01</span>
+                            <div style="position: relative; z-index: 1;">
+                                <h3 class="mb-3">Consultation & Prep</h3>
+                                <p class="text-white-50 mb-0">We begin with a thorough inspection to understand your needs, followed by a multi-stage decontamination wash and clay bar treatment.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center mb-5 gx-lg-5 flex-row-reverse process-step-row">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                         <div class="process-img-wrapper shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1000" alt="Paint Correction">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                         <div class="process-step-card">
+                            <span class="step-number">02</span>
+                            <div style="position: relative; z-index: 1;">
+                                <h3 class="mb-3">Correction & Protection</h3>
+                                <p class="text-white-50 mb-0">Our skilled technicians perform paint correction to remove swirls and scratches, restoring depth. We then apply your chosen protection.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center gx-lg-5 process-step-row">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                         <div class="process-img-wrapper shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=1000" alt="Final Finish">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                         <div class="process-step-card">
+                            <span class="step-number">03</span>
+                            <div style="position: relative; z-index: 1;">
+                                <h3 class="mb-3">Final Finish & Delivery</h3>
+                                <p class="text-white-50 mb-0">We address every detail, including interior spa treatment, wheels, and glass. A final quality control check ensures your vehicle is perfect.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="section-padding">
+            <div class="container">
+                <div class="row justify-content-center text-center mb-5">
+                    <div class="col-lg-7">
+                        <h3 class="text-primary text-uppercase letter-spacing-2 mb-3">Our Expertise</h3>
+                        <h2 class="mb-0">Premium <span class="text-gradient">Services</span></h2>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="service-card text-center">
+                            <span class="iconify service-icon" data-icon="fluent:vehicle-car-profile-24-filled"></span>
+                            <h4 class="mb-3 text-white">Paint Protection Film</h4>
+                            <p class="text-white-50 mb-0">Optically clear, self-healing film that provides the ultimate shield against rock chips and road debris.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="service-card text-center">
+                             <span class="iconify service-icon" data-icon="mdi:shield-star"></span>
+                            <h4 class="mb-3 text-white">Ceramic Coating</h4>
+                            <p class="text-white-50 mb-0">Industry-leading hydrophobic coatings creating a semi-permanent bond for extreme gloss.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="service-card text-center">
+                             <span class="iconify service-icon" data-icon="carbon:spray-paint"></span>
+                            <h4 class="mb-3 text-white">Paint Correction</h4>
+                            <p class="text-white-50 mb-0">Machine polishing to permanently remove swirl marks, scratches, and oxidation.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="service-card text-center">
+                             <span class="iconify service-icon" data-icon="mdi:car-seat-cooler"></span>
+                            <h4 class="mb-3 text-white">Interior Detailing</h4>
+                            <p class="text-white-50 mb-0">Deep steam cleaning, leather conditioning, and specialized treatments for all interior surfaces.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="service-card text-center">
+                            <span class="iconify service-icon" data-icon="mdi:water-pump"></span>
+                            <h4 class="mb-3 text-white">Maintenance Wash</h4>
+                            <p class="text-white-50 mb-0">Safe, pH-neutral washing techniques designed to maintain existing coatings.</p>
+                        </div>
+                    </div>
+                     <div class="col-md-6 col-lg-4">
+                        <div class="service-card text-center">
+                             <span class="iconify service-icon" data-icon="fluent:vehicle-car-24-filled"></span>
+                            <h4 class="mb-3 text-white">Specialized Treatments</h4>
+                            <p class="text-white-50 mb-0">Engine bay detailing, headlight restoration, glass coatings, and wheel-off services.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="section-padding bg-striped">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h3 class="text-primary text-uppercase letter-spacing-2 mb-2">Recent Work</h3>
+                    <h2 class="mb-5">The <span class="text-gradient">Gallery</span></h2>
+                    
+                    <div class="portfolio-filter d-flex justify-content-center flex-wrap gap-2 gap-md-3 mb-5">
+                        <button class="btn btn-outline-primary px-4 rounded-pill" data-filter="all">All Projects</button>
+                        <button class="btn btn-outline-primary px-4 rounded-pill" data-filter=".ppf">PPF</button>
+                        <button class="btn btn-outline-primary px-4 rounded-pill" data-filter=".ceramic">Coatings</button>
+                        <button class="btn btn-outline-primary px-4 rounded-pill" data-filter=".interior">Interior</button>
+                    </div>
+                </div>
+
+                <div id="portfolio-grid" class="row g-4 portfolio-container">
+                    <div class="col-md-6 col-lg-4 mix ppf">
+                        <a href="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&q=80&w=1400&fit=max" class="gallery-card shadow" data-fancybox="gallery" data-caption="Full Body PPF Application on Sports Car">
+                            <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&q=80&w=800&fit=max" alt="PPF Application">
+                            <div class="gallery-overlay">
+                                <div class="zoom-btn">
+                                    <span class="iconify" data-icon="heroicons:plus-20-solid"></span>
+                                </div>
+                                <h5 class="text-white mb-0">Full Body PPF</h5>
+                                <small class="text-white-50">Paint Protection</small>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4 mix ceramic">
+                        <a href="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&q=80&w=1400&fit=max" class="gallery-card shadow" data-fancybox="gallery" data-caption="High Gloss Ceramic Coating Result">
+                            <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&q=80&w=800&fit=max" alt="Ceramic Coating">
+                            <div class="gallery-overlay">
+                                <div class="zoom-btn">
+                                    <span class="iconify" data-icon="heroicons:plus-20-solid"></span>
+                                </div>
+                                <h5 class="text-white mb-0">Ceramic Gloss</h5>
+                                <small class="text-white-50">Coating</small>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4 mix interior">
+                        <a href="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&q=80&w=1400&fit=max" class="gallery-card shadow" data-fancybox="gallery" data-caption="Luxury Leather Interior Restoration">
+                            <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&q=80&w=800&fit=max" alt="Interior Detailing">
+                            <div class="gallery-overlay">
+                                <div class="zoom-btn">
+                                    <span class="iconify" data-icon="heroicons:plus-20-solid"></span>
+                                </div>
+                                <h5 class="text-white mb-0">Leather Restoration</h5>
+                                <small class="text-white-50">Interior</small>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 mix ppf">
+                        <a href="https://images.unsplash.com/photo-1745585745862-7d86eb5a5ad4?auto=format&q=80&w=1400&fit=max" class="gallery-card shadow" data-fancybox="gallery" data-caption="Front End PPF Package">
+                            <img src="https://images.unsplash.com/photo-1745585745862-7d86eb5a5ad4?auto=format&q=80&w=800&fit=max" alt="PPF Hood">
+                            <div class="gallery-overlay">
+                                <div class="zoom-btn">
+                                    <span class="iconify" data-icon="heroicons:plus-20-solid"></span>
+                                </div>
+                                <h5 class="text-white mb-0">Track Pack PPF</h5>
+                                <small class="text-white-50">Paint Protection</small>
+                            </div>
+                        </a>
+                    </div>
+
+                     <div class="col-md-6 col-lg-4 mix ceramic">
+                        <a href="https://images.unsplash.com/photo-1506398525220-b32719bb8c13?auto=format&q=80&w=1400&fit=max" class="gallery-card shadow" data-fancybox="gallery" data-caption="Stage 2 Paint Correction before Coating">
+                            <img src="https://images.unsplash.com/photo-1506398525220-b32719bb8c13?auto=format&q=80&w=800&fit=max" alt="Paint Correction">
+                            <div class="gallery-overlay">
+                                <div class="zoom-btn">
+                                    <span class="iconify" data-icon="heroicons:plus-20-solid"></span>
+                                </div>
+                                <h5 class="text-white mb-0">Paint Correction</h5>
+                                <small class="text-white-50">Restoration</small>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 mix interior">
+                        <a href="https://images.unsplash.com/photo-1699078614960-82b2ebe8d896?auto=format&q=80&w=1400&fit=max" class="gallery-card shadow" data-fancybox="gallery" data-caption="Detailed Cockpit Cleaning">
+                            <img src="https://images.unsplash.com/photo-1699078614960-82b2ebe8d896?auto=format&q=80&w=800&fit=max" alt="Interior Cockpit">
+                            <div class="gallery-overlay">
+                                <div class="zoom-btn">
+                                    <span class="iconify" data-icon="heroicons:plus-20-solid"></span>
+                                </div>
+                                <h5 class="text-white mb-0">Cockpit Detail</h5>
+                                <small class="text-white-50">Interior</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section-padding">
+            <div class="container">
+                <div class="row gy-5 align-items-center">
+                    <div class="col-lg-5">
+                        <h3 class="text-primary text-uppercase letter-spacing-2 mb-3">Get In Touch</h3>
+                        <h2 class="mb-4 display-5">Ready for the <span class="text-gradient">Elite</span> Treatment?</h2>
+                        <p class="text-white-50 mb-5 lead">Contact us today for a consultation or to schedule your vehicle's transformation.</p>
+                        
+                        <div class="d-flex flex-column gap-4">
+                            <div class="contact-detail-item">
+                                <div class="contact-detail-icon mb-3">
+                                    <span class="iconify" data-icon="heroicons:map-pin-20-solid"></span>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1 text-white">Studio Location</h5>
+                                    <p class="mb-0 text-white-50">A/40 Elite Park, Premium Rd, City, State 390007</p>
+                                </div>
+                            </div>
+                            <div class="contact-detail-item">
+                                <div class="contact-detail-icon mb-3">
+                                    <span class="iconify" data-icon="heroicons:phone-20-solid"></span>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1 text-white">Call Us</h5>
+                                    <p class="mb-0"><a href="tel:+919558566851" class="text-white-50 text-decoration-none">+91 95585 66851</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-7">
+                        <div class="contact-wrapper">
+                            <h3 class="mb-4 text-white">Request a Quote</h3>
+                            <form id="contactForm" novalidate>
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" id="nameInput" class="form-control" placeholder="Your Name" required>
+                                            <label for="nameInput">Your Name</label>
+                                            <div class="invalid-feedback">Please enter your name.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="tel" id="phoneInput" class="form-control" placeholder="Phone Number" required>
+                                            <label for="phoneInput">Phone Number</label>
+                                            <div class="invalid-feedback">Please enter your phone number.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" id="carInput" class="form-control" placeholder="Vehicle Details" required>
+                                            <label for="carInput">Vehicle Model (e.g., Porsche 911)</label>
+                                            <div class="invalid-feedback">Please enter the vehicle model.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <select id="serviceInput" class="form-select" required>
+                                                <option value="" selected disabled>Select Service Interest</option>
+                                                <option value="General Inquiry">General Inquiry</option>
+                                                <option value="Paint Protection Film (PPF)">Paint Protection Film (PPF)</option>
+                                                <option value="Ceramic Coating">Ceramic Coating</option>
+                                                <option value="Paint Correction">Paint Correction</option>
+                                                <option value="Interior Detailing">Interior Detailing</option>
+                                            </select>
+                                            
+                                            <div class="invalid-feedback">Please select a service.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea id="messageInput" class="form-control" placeholder="Message" style="height: 120px" required></textarea>
+                                            <label for="messageInput">Additional Details</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <a id="whatsapp-btn" href="#" class="btn btn-primary w-100 py-3 d-flex align-items-center justify-content-center gap-2 text-white">
+                                            <span class="iconify" data-icon="logos:whatsapp-icon" data-width="24"></span>
+                                            <span class="fw-bold">Send via WhatsApp</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer text-center md-text-start">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                     <h4 class="navbar-brand-text mb-2">ELITE <span>AUTOMOTIVE</span></h4>
+                     <p class="text-white-50 small mb-0 w-75 mx-auto mx-md-0">The premier destination for automotive detailing, protection, and aesthetic restoration.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="text-white-50 mb-0 small">© <span id="year"></span> Elite Automotive Studio. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mixitup/3.3.1/mixitup.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // ==========================================
+        // 1. GLOBAL UTILITIES
+        // ==========================================
+        function debounce(func, wait, immediate) {
+            let timeout;
+            return function() {
+                const context = this, args = arguments;
+                const later = function() {
+                    timeout = null;
+                    if (!immediate) func.apply(context, args);
+                };
+                const callNow = immediate && !timeout;
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+                if (callNow) func.apply(context, args);
+            };
+        }
+
+        let isMobile = false;
+        function checkDeviceType() {
+            const userAgent = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const screenWidth = window.innerWidth < 992; 
+            isMobile = userAgent || screenWidth;
+        }
+        checkDeviceType();
+        window.addEventListener('resize', checkDeviceType);
+
+
+        // ==========================================
+        // 2. MIXITUP & FANCYBOX INTEGRATION
+        // ==========================================
+        
+        // A. Initialize Fancybox
+        // Bind to all elements with data-fancybox="gallery" (the visible ones)
+        // Bind to "hidden" just in case, but they won't be clickable if display:none
+        Fancybox.bind('[data-fancybox]', {
+            Hash: false,
+            Thumbs: false,
+            Toolbar: { display: ["zoom", "close"] },
+        });
+
+        // B. Initialize MixItUp
+        const containerEl = document.querySelector('#portfolio-grid');
+        
+        if (containerEl) {
+            const mixer = mixitup(containerEl, {
+                selectors: {
+                    target: '.mix'
+                },
+                animation: {
+                    duration: 400,
+                    nudge: false // Disable nudge to prevent jerks on some grid layouts
+                },
+                callbacks: {
+                    // Logic to ensure Fancybox only cycles through VISIBLE items
+                    onMixEnd: function(state) {
+                         state.targets.forEach(item => {
+                             const link = item.querySelector('a');
+                             // If the item is shown (display: block/inline-block by MixItUp)
+                             if (item.style.display !== 'none') {
+                                 link.setAttribute('data-fancybox', 'gallery');
+                             } else {
+                                 // Rename group so it doesn't appear in the lightbox navigation
+                                 link.setAttribute('data-fancybox', 'hidden');
+                             }
+                         });
+                    }
+                }
+            });
+        }
+
+
+        // ==========================================
+        // 3. SWIPER (HERO)
+        // ==========================================
+        try {
+            const heroSwiper = new Swiper('.hero-swiper', {
+                loop: true,
+                effect: 'fade',
+                speed: 1500,
+                fadeEffect: { crossFade: true },
+                autoplay: {
+                    delay: 6000,
+                    disableOnInteraction: false,
+                },
+                pagination: { el: '.swiper-pagination', clickable: true },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        } catch (e) {
+            console.warn("Swiper failed to initialize:", e);
+        }
+
+
+        // ==========================================
+        // 4. UI INTERACTION (Header)
+        // ==========================================
+        const header = document.getElementById('header');
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        };
+        window.addEventListener('scroll', debounce(handleScroll, 15));
+        handleScroll();
+
+
+        // ==========================================
+        // 5. CONTACT FORM LOGIC
+        // ==========================================
+        const whatsappBtn = document.getElementById('whatsapp-btn');
+        const contactForm = document.getElementById('contactForm');
+        const whatsappNumber = "919558566851"; 
+
+        function handleFormSubmit(e) {
+            if(e) e.preventDefault();
+            
+            const nameInput = document.getElementById('nameInput');
+            const phoneInput = document.getElementById('phoneInput');
+            const carInput = document.getElementById('carInput');
+            const serviceSelect = document.getElementById('serviceInput');
+            const messageInput = document.getElementById('messageInput');
+
+            const allInputs = [nameInput, phoneInput, carInput, serviceSelect, messageInput];
+            allInputs.forEach(input => input.classList.remove('is-invalid'));
+
+            let isValid = true;
+            allInputs.forEach(input => {
+                if (input.required && !input.value.trim()) {
+                    input.classList.add('is-invalid');
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) return; 
+
+            const name = nameInput.value.trim();
+            const phone = phoneInput.value.trim();
+            const car = carInput.value.trim();
+            const service = serviceSelect.value;
+            const message = messageInput.value.trim();
+
+            let msgText = `*New Elite Automotive Inquiry*`;
+            msgText += `\n\n*Name:* ${name}`;
+            msgText += `\n*Phone:* ${phone}`;
+            msgText += `\n*Vehicle:* ${car}`;
+            msgText += `\n*Interest:* ${service}`;
+            if(message) msgText += `\n*Notes:* ${message}`;
+
+            const encodedMsg = encodeURIComponent(msgText);
+            const url = isMobile
+                ? `https://wa.me/${whatsappNumber}?text=${encodedMsg}`
+                : `https://web.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMsg}`;
+
+            window.open(url, '_blank');
+            contactForm.reset();
+        }
+
+        if(whatsappBtn) {
+            whatsappBtn.addEventListener('click', debounce(handleFormSubmit, 2000, true));
+        }
+
+        ['nameInput', 'phoneInput', 'carInput', 'serviceInput', 'messageInput'].forEach(id => {
+            const element = document.getElementById(id);
+            if(element) {
+                ['input', 'change'].forEach(evt => 
+                    element.addEventListener(evt, function() {
+                        this.classList.remove('is-invalid');
+                    })
+                );
+            }
+        });
+
+        // Footer Year
+        const yearSpan = document.getElementById("year");
+        if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+    });
+</script>
+  </body>
+</html>
